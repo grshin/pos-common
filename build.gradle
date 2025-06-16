@@ -1,8 +1,9 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
 }
 
-group = 'com.example'
+group = 'com.pos'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -16,8 +17,18 @@ repositories {
 dependencies {
     implementation platform("org.springframework.boot:spring-boot-dependencies:3.3.0")
     implementation 'org.springframework.boot:spring-boot-starter'
+}
 
-    // 필요 시 추가
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "localMaven"
+            url = uri("${rootProject.projectDir}/repo")
+        }
+    }
 }
