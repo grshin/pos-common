@@ -1,0 +1,2 @@
+// common/settings.gradle
+rootProject.name = 'common'
