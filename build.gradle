@@ -23,12 +23,17 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifactId = 'common'
         }
     }
     repositories {
         maven {
-            name = "localMaven"
-            url = uri("${rootProject.projectDir}/repo")
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/grshin/pos-common")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
         }
     }
 }
